@@ -1,0 +1,35 @@
+{
+  "name": "shri-2020-task-2",
+  "version": "1.0.0",
+  "description": "Тестовое задание «Напишите линтер» для 16-й Школы разработки интерфейсов (зима 2020, Москва).",
+  "main": "linter.js",
+  "scripts": {
+    "build": "gulp build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mpoliakov/shri-2020-task-2.git"
+  },
+  "author": "Maksim Poliakov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mpoliakov/shri-2020-task-2/issues"
+  },
+  "homepage": "https://github.com/mpoliakov/shri-2020-task-2#readme",
+  "dependencies": {
+    "json-to-ast": "^2.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.6",
+    "babelify": "^10.0.0",
+    "browserify": "^16.5.0",
+    "gulp": "^4.0.2",
+    "gulp-rename": "^1.4.0",
+    "gulp-uglify": "^3.0.2",
+    "uglify": "^0.1.5",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
+  }
+}
