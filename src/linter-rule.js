@@ -1,9 +1,13 @@
+const LinterRuleType = {
+    DOCUMENT: 0,
+    NODE: 1
+}
+
 class LinterRule {
     constructor() {
-    }
-    trigger(node) {
 
     }
+
     lint() {
 
     }

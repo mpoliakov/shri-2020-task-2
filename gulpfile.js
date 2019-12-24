@@ -1,7 +1,6 @@
 'use strict';
 
 const gulp = require('gulp');
-const rename = require('gulp-rename');
 const babelify = require('babelify');
 const browserify = require('browserify');
 const uglify = require('gulp-uglify');
@@ -16,11 +15,9 @@ gulp.task('build', async () => {
             presets : ['@babel/preset-env']
         }))
         .bundle()
-        .pipe(source("script.js"))
-        .pipe(gulp.dest('build'))
+        .pipe(source("linter.js"))
         .pipe(buffer())
         .pipe(uglify())
-        .pipe(rename('script.min.js'))
         .pipe(gulp.dest('build'));
 });
 

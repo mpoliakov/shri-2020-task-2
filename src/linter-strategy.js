@@ -18,12 +18,18 @@ export default class LinterStrategy {
         }
     }
 
-    addStrategy(strategy) {
-        this._strategies = [...this._strategies, strategy];
+    lintDocument(node) {
+        // where rule type === DOCUMENT
+        for(let rule in this._rules) {
+            rule.lint(node);
+        }
     }
 
-    getStrategy(name) {
-        return this._strategies.find(strategy => strategy._name === name);
+    lintNode(node) {
+        // where rule type === NODE
+        for(let rule in this._rules) {
+            rule.lint(node);
+        }
     }
 }
 
