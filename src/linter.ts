@@ -1,17 +1,19 @@
-import jsonToAst from 'json-to-ast';
-import configuration from "./configuration";
-import LinterStrategy from "./linter-strategy";
+import * as jsonToAst from 'json-to-ast';
+//import configuration from "./configuration";
+//import LinterStrategy from "./linter-strategy";
 
-const lint = (json) => {
-    const strategy = new LinterStrategy(configuration);
+const lint = (json: string) => {
+   // const strategy = new LinterStrategy(configuration);
 
     const ast = jsonToAst(json);
     traverse(ast);
 
+    console.log(ast);
+
     return [];
 };
 
-const traverse = (node) => {
+const traverse = (node: jsonToAst.AstJsonEntity) => {
     // https://medium.com/quick-code/data-structures-traversing-trees-9473f6d9f4ef
     // https://blog.bitsrc.io/a-guide-to-javascript-algorithms-search-4d653be3dca2
 
@@ -25,11 +27,11 @@ const traverse = (node) => {
             break;
 
         case 'Object':
-            // trigger
+            // lint
 
             node.children.forEach((property) => {
-                cbProp(property);
-                walk(property.value, cbProp, cbObj);
+                // lint
+                traverse(property.value);
             });
             break;
     }

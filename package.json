@@ -2,10 +2,11 @@
   "name": "shri-2020-task-2",
   "version": "1.0.0",
   "description": "Тестовое задание «Напишите линтер» для 16-й Школы разработки интерфейсов (зима 2020, Москва).",
-  "main": "linter.js",
+  "main": "build/linter.js",
   "scripts": {
-    "build": "gulp build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack",
+    "start": "node build/linter.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -21,14 +22,22 @@
     "json-to-ast": "^2.1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.7",
-    "@babel/preset-env": "^7.7.6",
-    "babelify": "^10.0.0",
-    "browserify": "^16.5.0",
-    "gulp": "^4.0.2",
-    "gulp-uglify": "^3.0.2",
-    "uglify": "^0.1.5",
-    "vinyl-buffer": "^1.0.1",
-    "vinyl-source-stream": "^2.0.0"
+    "@types/jest": "^24.0.25",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.2.0",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.4",
+    "webpack": "^4.41.4",
+    "webpack-cli": "^3.3.10"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.ts?$": "ts-jest"
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "testRegex": "^.+\\.test\\.ts$"
   }
 }

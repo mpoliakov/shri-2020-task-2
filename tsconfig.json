@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "es6",
+    "declaration": true,
+    "outDir": "build",
+    "strict": true,
+    "removeComments": true,
+    "typeRoots" : ["./src/@types"]
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
