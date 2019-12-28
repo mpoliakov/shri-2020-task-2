@@ -18,12 +18,19 @@ export default class LinterStrategy {
         this.rules = [];
 
         for (let category in configuration) {
-            let codes: object = (configuration as any)[category];
+            const codes: object = (configuration as any)[category];
 
             for(let code in codes) {
-                let ruleClass = (codes as any)[code];
-                // TODO: check instance of LinterRule
-                this.rules = [...this.rules, ruleClass.prototype.constructor(category, code)];
+                const ruleClass = (codes as any)[code];
+
+                try {
+                    const ruleInstance = ruleClass.prototype.constructor(category, code);
+                    if (ruleInstance instanceof LinterRule) {
+                        this.rules = [...this.rules, ruleInstance];
+                    }
+                }
+                catch {
+                }
             }
         }
     }

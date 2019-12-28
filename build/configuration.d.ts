@@ -1,7 +1,7 @@
-import Warning_TextSizesShouldBeEqual_Rule from './linter-rules/WARNING.TEXT_SIZES_SHOULD_BE_EQUAL';
+import * as LinterRules from './linter-rules/linter-rules';
 declare const _default: {
     WARNING: {
-        TEXT_SIZES_SHOULD_BE_EQUAL: typeof Warning_TextSizesShouldBeEqual_Rule;
+        TEXT_SIZES_SHOULD_BE_EQUAL: typeof LinterRules.Warning_TextSizesShouldBeEqual;
     };
     TEXT: {};
     GRID: {};
