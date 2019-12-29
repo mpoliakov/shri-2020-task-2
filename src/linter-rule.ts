@@ -1,4 +1,4 @@
-import { AstJsonEntity } from 'json-to-ast';
+import {BemBlock, BemBlockArray} from "./bem-block";
 import { LinterProblem } from "./linter-problem";
 
 enum LinterRuleType {
@@ -16,7 +16,7 @@ export abstract class LinterRule {
         this.type = type;
     }
 
-    abstract lint(ast: AstJsonEntity): LinterProblem[];
+    abstract lint(bem: BemBlock | BemBlockArray): LinterProblem[];
 }
 
 export abstract class DocumentLinterRule extends LinterRule {

@@ -18,5 +18,6 @@ export declare enum TextSize {
 export declare class AstObjectHelper {
     static getBlockName(node: AstObject): string;
     static getContentAst(node: AstObject): AstArray | null;
+    static getMods(node: AstObject): object;
     static getLocation(node: AstJsonEntity): Location;
 }

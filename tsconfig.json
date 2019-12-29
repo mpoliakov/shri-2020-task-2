@@ -8,7 +8,8 @@
     "strict": true,
     "removeComments": true,
     //"typeRoots" : ["./src/@types"],
-    "types": ["jest", "node"]
+    "types": ["jest", "node"],
+    "esModuleInterop": true
   },
   "include": [
     "src/**/*"

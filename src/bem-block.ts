@@ -1,5 +1,6 @@
 import { Location, AstObjectHelper } from "./utils";
-import * as jsonToAst from 'json-to-ast';
+//import * as jsonToAst from 'json-to-ast';
+import jsonToAst from 'json-to-ast';
 
 export class BemBlock {
     block: string;
@@ -46,31 +47,7 @@ export class BemBlockArray {
 
 //export type BemEntity = BemBlock | BemBlockArray;
 
-export const jsonToBem = (json: string) : BemBlock | BemBlockArray | null => {
-    /*const traverse = (node: jsonToAst.AstJsonEntity, bemItem: BemBlock | BemBlockArray | null) => {
-        switch (node.type) {
-            case 'Array':
-                bemItem = {} as BemBlockArray;
-                bemItem.blocks = new Array<BemBlock>(node.children.length);
-                bemItem.location = AstObjectHelper.getLocation(node);
-
-                node.children.forEach((i) => {
-                   // traverse(i, )
-                });
-                break;
-
-            case 'Object':
-                bemItem = {} as BemBlock;
-                bemItem.block = AstObjectHelper.getBlockName(node);
-                bemItem.location = AstObjectHelper.getLocation(node);
-
-                node.children.forEach((property) => {
-                    //traverse(property.value);
-                });
-                break;
-        }
-    }*/
-
+export const jsonToBem = (json: string) : BemBlock | BemBlockArray | undefined => {
     // TODO: refactor traverse
 
     const traverseBlock = (node: jsonToAst.AstObject, bemItem: BemBlock) => {
@@ -107,7 +84,5 @@ export const jsonToBem = (json: string) : BemBlock | BemBlockArray | null => {
             traverseArray(ast, bemBlockArray);
             return bemBlockArray;
     }
-
-    return null;
 }
 

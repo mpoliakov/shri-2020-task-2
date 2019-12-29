@@ -1,5 +1,5 @@
-import { LinterRule, DocumentLinterRule, NodeLinterRule } from "./linter-rule";
-import { AstJsonEntity } from 'json-to-ast';
+import { LinterRule } from "./linter-rule";
+import { BemBlock, BemBlockArray, jsonToBem } from "./bem-block";
 
 export default class LinterStrategy {
     private static instance: LinterStrategy;
@@ -35,14 +35,10 @@ export default class LinterStrategy {
         }
     }
 
-    lint(ast: AstJsonEntity) {
-        console.log('Start linting...')
-
-        for(let rule of this.rules) {
-            rule.lint(ast);
-        }
-
-        console.log('End linting.')
+    lint(json: string) {
+        console.log('Start linting...');
+        const bem = jsonToBem(json);
+        console.log('End linting.');
     }
 }
 
