@@ -10,10 +10,7 @@ export class Warning_TextSizesShouldBeEqual_Rule extends NodeLinterRule {
     lint(ast: AstJsonEntity): LinterProblem[] {
         if (ast) {
             console.log('WARNING.TEXT_SIZES_SHOULD_BE_EQUAL is linting...');
-
-
         }
-
         return [];
     }
 }

@@ -15,42 +15,14 @@
 }
 */
 
-import { AstLocation } from 'json-to-ast';
+import { Location } from './utils';
 
-interface LinterProblemPosition {
-    column: number;
-    line: number;
-}
-
-interface LinterProblemLocation {
-    start: LinterProblemPosition;
-    end: LinterProblemPosition
-}
-
-export class LinterProblem {
-    readonly code: string;
-    readonly error: string;
-    readonly location: LinterProblemLocation;
-
-    constructor(code: string,
-                error: string,
-                location: AstLocation) {
-        this.code = code;
-        this.error = error;
-        this.location = {
-            start: {
-                column: location.start.column,
-                line: location.start.line
-            },
-            end: {
-                column: location.end.column,
-                line: location.end.line
-            }
-        };
-    }
-
-    toPlainObj() {
+export interface LinterProblem {
+    code: string;
+    error: string;
+    location: Location;
+    /*toPlainObj() {
         return Object.assign({}, this);
-    }
+    }*/
 }
 
