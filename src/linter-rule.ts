@@ -1,4 +1,4 @@
-import {BemBlock, BemBlockArray} from "./bem-block";
+import { BemBlock } from "./bem-block";
 import { LinterProblem } from "./linter-problem";
 
 enum LinterRuleType {
@@ -16,13 +16,7 @@ export abstract class LinterRule {
         this.type = type;
     }
 
-    abstract lint(bem: BemBlock | BemBlockArray): LinterProblem[];
-}
-
-export abstract class DocumentLinterRule extends LinterRule {
-    protected constructor(category: string, code: string) {
-        super(category, code, LinterRuleType.DOCUMENT);
-    }
+    abstract lint(bem: BemBlock): LinterProblem[];
 }
 
 export abstract class NodeLinterRule extends LinterRule {
@@ -30,3 +24,13 @@ export abstract class NodeLinterRule extends LinterRule {
         super(category, code, LinterRuleType.NODE);
     }
 }
+
+export abstract class DocumentLinterRule extends LinterRule {
+    protected constructor(category: string, code: string) {
+        super(category, code, LinterRuleType.DOCUMENT);
+    }
+
+    // abstract analize(bem: BemBlock, depth: number): void;
+    // abstract lint(): LinterProblem[];
+}
+

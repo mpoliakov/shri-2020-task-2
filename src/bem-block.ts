@@ -1,13 +1,12 @@
 import { Location, AstObjectHelper } from "./utils";
-//import * as jsonToAst from 'json-to-ast';
 import jsonToAst from 'json-to-ast';
 
 export class BemBlock {
     block: string;
     content?: BemBlockArray;
-    mods?: object;
+    mods?: object; // TODO: map<string, string | boolean | number>
     elem?: BemBlock;
-    elemMods?: object;
+    elemMods?: object; // TODO: map<string, string | boolean | number>
     mix?: BemBlockArray;
     location?: Location;
 

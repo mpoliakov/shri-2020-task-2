@@ -2,24 +2,39 @@ import { AstArray, AstObject, AstProperty, AstLiteral } from 'json-to-ast';
 import AstJsonEntity = JsonToAst.AstJsonEntity;
 
 export interface Position {
-    line: number;
     column: number;
+    line: number;
 }
 
 export interface Location {
     start: Position;
-    end: Position
+    end: Position;
 }
 
 // size enum
 // https://www.npmjs.com/package/es6-enum
 // https://github.com/rauschma/enumify
-export enum TextSize {
-    S = 's',
+export enum BlockSize {
+    S = 's' ,
     M = 'm',
     L = 'l',
     XL = 'xl',
     XXL = 'xxl'
+}
+
+export const incrementBlockSize = (value: string): string | undefined => {
+    switch (value) {
+        case 's':
+            return 'm';
+        case 'm':
+            return 'l';
+        case 'l':
+            return 'xl';
+        case 'xl':
+            return 'xxl';
+        default:
+            return undefined;
+    }
 }
 
 export class AstObjectHelper {
@@ -68,12 +83,12 @@ export class AstObjectHelper {
     static getLocation(node: AstJsonEntity): Location {
         return {
             start: {
-                line: node.loc.start.line,
-                column: node.loc.start.column
+                column: node.loc.start.column,
+                line: node.loc.start.line
             },
             end: {
-                line: node.loc.end.line,
-                column: node.loc.end.column
+                column: node.loc.end.column,
+                line: node.loc.end.line
             }
         };
     }

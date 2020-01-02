@@ -1,14 +1,42 @@
-import configuration from "./configuration";
-import LinterStrategy from "./linter-strategy";
+import configuration from './configuration';
+import LinterStrategy from './linter-strategy';
+import { LinterProblem } from './linter-problem'
 
-const lint = (json: string) => {
+(global as any).lint = (json: string): LinterProblem[] => {
     const strategy = LinterStrategy.getInstance(configuration);
-    strategy.lint(json);
-    return [];
+    return strategy.lint(json);
 };
 
-((() => {
-    const json = '{ "block": "text" }';
-    lint(json);
-})());
+/*((() => {
+    const json = `{
+        "block": "warning",
+        "content": [
+            {
+                "block": "text",
+                "mods": {
+                    "size": "l"
+                }
+            },
+            {
+                "block": "text",
+                "mods": {
+                    "size": "m"
+                }
+            },
+            {
+              "block": "placeholder",
+              "mods": {
+                "size": "xl"
+              }
+            }
+        ]
+    }`;
+
+    const errors = (global as any).lint(json);
+
+    for (let err of errors) {
+        console.log(`${err.code}: ${err.error}`);
+        console.log(JSON.stringify(err));
+    }
+})());*/
 
