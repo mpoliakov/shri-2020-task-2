@@ -1,5 +1,5 @@
-import { BemBlock } from "./bem-block";
-import { LinterProblem } from "./linter-problem";
+import BemBlock from "../bem/bem-block";
+import LinterProblem from "./linter-problem";
 
 enum LinterRuleType {
     DOCUMENT,
@@ -29,8 +29,5 @@ export abstract class DocumentLinterRule extends LinterRule {
     protected constructor(category: string, code: string) {
         super(category, code, LinterRuleType.DOCUMENT);
     }
-
-    // abstract analize(bem: BemBlock, depth: number): void;
-    // abstract lint(): LinterProblem[];
 }
 

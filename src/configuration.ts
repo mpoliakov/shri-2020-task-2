@@ -1,18 +1,18 @@
-import * as LinterRules from './linter-rules/linter-rules';
+import LinterRules from './linter/rules/rules';
 
 export default {
     WARNING: {
-        TEXT_SIZES_SHOULD_BE_EQUAL: LinterRules.WarningTextSizesShouldBeEqual,
-        INVALID_BUTTON_SIZE: LinterRules.WarningInvalidButtonSize,
-        INVALID_BUTTON_POSITION: LinterRules.WarningInvalidButtonPosition,
-        INVALID_PLACEHOLDER_SIZE: LinterRules.WarningInvalidPlaceholderSize
+        TEXT_SIZES_SHOULD_BE_EQUAL: LinterRules.Warning.TextSizesShouldBeEqual,
+        INVALID_BUTTON_SIZE: LinterRules.Warning.InvalidButtonSize,
+        INVALID_BUTTON_POSITION: LinterRules.Warning.InvalidButtonPosition,
+        INVALID_PLACEHOLDER_SIZE: LinterRules.Warning.InvalidPlaceholderSize
     },
     TEXT: {
-        SEVERAL_H1: LinterRules.TextSeveralH1,
-        INVALID_H2_POSITION: LinterRules.TextInvalidH2Position,
-        INVALID_H3_POSITION: LinterRules.TextInvalidH3Position
+        SEVERAL_H1: LinterRules.Text.SeveralH1,
+        INVALID_H2_POSITION: LinterRules.Text.InvalidH2Position,
+        INVALID_H3_POSITION: LinterRules.Text.InvalidH3Position
     },
     GRID: {
-        TOO_MUCH_MARKETING_BLOCKS: LinterRules.GridTooMuchMarketingBlocks
+        TOO_MUCH_MARKETING_BLOCKS: LinterRules.Grid.TooMuchMarketingBlocks
     }
 }

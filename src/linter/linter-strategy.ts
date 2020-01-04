@@ -1,6 +1,8 @@
 import { LinterRule } from "./linter-rule";
-import { BemBlock, BemBlockArray, jsonToBem } from "./bem-block";
-import { LinterProblem } from "./linter-problem";
+import BemBlock from "../bem/bem-block";
+import BemBlockArray from "../bem/bem-block-array";
+import jsonToBem from '../bem/json-to-bem';
+import LinterProblem from "./linter-problem";
 
 export default class LinterStrategy {
     private static instance: LinterStrategy;

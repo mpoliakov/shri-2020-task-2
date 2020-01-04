@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
-import { BemBlock, jsonToBem } from '../../src/bem-block';
-import * as LinterRules from '../../src/linter-rules/linter-rules';
+import { BemBlock, jsonToBem } from '../../src/bem/bem-block';
+import * as LinterRules from '../../src/linter/rules/linter-rules';
 //import { LinterProblem } from '../src/linter-problem';
 
 describe('WARNING', () => {
