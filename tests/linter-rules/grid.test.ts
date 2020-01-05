@@ -19,7 +19,6 @@ describe('GRID', () => {
             const result = linterRule.lint(bem);
             expect(result instanceof Array).toBeTruthy();
             expect(result.length).toEqual(1);
-            // TODO: expect(result[0] instanceof LinterProblem).toBeTruthy();
             expect(result[0].code).toEqual('GRID.TOO_MUCH_MARKETING_BLOCKS');
             expect(result[0].error).toEqual('Маркетинговые блоки (commercial, offer) занимают не больше половины от всех колонок блока grid.');
             expect(result[0].location.start.column).toEqual(1);
