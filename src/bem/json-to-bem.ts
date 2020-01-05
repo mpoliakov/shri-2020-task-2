@@ -4,41 +4,37 @@ import BemBlockArray from "./bem-block-array";
 import AstObjectHelper from './ast-object-helper';
 
 export default (json: string) : BemBlock | BemBlockArray | undefined => {
-    // TODO: refactor traverse
+    // TODO: let depth: number = 0;
 
-    const traverseBlock = (node: jsonToAst.AstObject, bemItem: BemBlock) => {
-        bemItem.block = AstObjectHelper.getBlockName(node);
-        bemItem.mods = AstObjectHelper.getMods(node);
-
-        const contentAst = AstObjectHelper.getAstContent(node);
-        if (contentAst) {
-            bemItem.content = new BemBlockArray();
-            traverseArray(contentAst, bemItem.content);
+    const traverse = (ast: jsonToAst.AstJsonEntity | undefined) : BemBlock | BemBlockArray | undefined => {
+        if (!ast) {
+            return;
         }
 
-        bemItem.location = AstObjectHelper.getLocation(node);
-    };
+        switch (ast.type) {
+            case 'Object':
+                const bemBlock = new BemBlock();
+                bemBlock.block = AstObjectHelper.getBlock(ast);
+                bemBlock.mods = AstObjectHelper.getMods(ast);
+                bemBlock.elem = AstObjectHelper.getElem(ast);
+                bemBlock.elemMods = AstObjectHelper.getElemMods(ast);
+                bemBlock.content = traverse(AstObjectHelper.getAstContent(ast)) as BemBlockArray;
+                bemBlock.mix = traverse(AstObjectHelper.getAstMix(ast)) as BemBlockArray;
+                bemBlock.location = AstObjectHelper.getLocation(ast);
+                return bemBlock;
 
-    const traverseArray = (nodeArr: jsonToAst.AstArray, bemBlockArr: BemBlockArray) => {
-        nodeArr.children.forEach((n) => {
-            let arrayItem = new BemBlock();
-            traverseBlock(n as jsonToAst.AstObject, arrayItem);
-            bemBlockArr.blocks.push(arrayItem);
-        });
-        bemBlockArr.location = AstObjectHelper.getLocation((nodeArr));
+            case 'Array':
+                const bemBlockArr = new BemBlockArray();
+                ast.children?.forEach((astObject) => {
+                    bemBlockArr?.blocks.push(traverse(astObject) as BemBlock);
+                });
+                bemBlockArr.location = AstObjectHelper.getLocation((ast));
+                return bemBlockArr;
+        }
+
+        return;
     };
 
     const ast = jsonToAst(json);
-
-    switch (ast.type) {
-        case 'Object':
-            let bemBlock = new BemBlock();
-            traverseBlock(ast, bemBlock);
-            return bemBlock;
-
-        case 'Array':
-            let bemBlockArray = new BemBlockArray();
-            traverseArray(ast, bemBlockArray);
-            return bemBlockArray;
-    }
+    return traverse(ast);
 }

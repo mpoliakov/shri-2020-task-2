@@ -1,18 +1,19 @@
 import { readFileSync } from 'fs';
-import { BemBlock, jsonToBem } from '../../src/bem/bem-block';
-import * as LinterRules from '../../src/linter/rules/linter-rules';
+import BemBlock from '../../src/bem/bem-block';
+import jsonToBem from '../../src/bem/json-to-bem';
+import LinterRules from '../../src/linter/rules/rules';
 
 describe('TEXT', () => {
     describe('SEVERAL_H1', () => {
         test('valid', () => {
-            const linterRule = new LinterRules.TextSeveralH1('TEXT', 'SEVERAL_H1');
+            const linterRule = new LinterRules.Text.SeveralH1('TEXT', 'SEVERAL_H1');
             const json = readFileSync('./tests/linter-rules/samples/text/several_h1.valid.json', 'utf8');
             const bem = jsonToBem(json) as BemBlock;
             expect(linterRule.lint(bem)).toEqual([]);
         });
 
         test('invalid', () => {
-            const linterRule = new LinterRules.TextSeveralH1('TEXT', 'SEVERAL_H1');
+            const linterRule = new LinterRules.Text.SeveralH1('TEXT', 'SEVERAL_H1');
             const json = readFileSync('./tests/linter-rules/samples/text/several_h1.invalid.json', 'utf8');
             const bem = jsonToBem(json) as BemBlock;
             const result = linterRule.lint(bem);
@@ -30,14 +31,14 @@ describe('TEXT', () => {
 
     describe('INVALID_H2_POSITION', () => {
         test('valid', () => {
-            const linterRule = new LinterRules.TextInvalidH2Position('TEXT', 'INVALID_H2_POSITION');
+            const linterRule = new LinterRules.Text.InvalidH2Position('TEXT', 'INVALID_H2_POSITION');
             const json = readFileSync('./tests/linter-rules/samples/text/invalid_h2_position.valid.json', 'utf8');
             const bem = jsonToBem(json) as BemBlock;
             expect(linterRule.lint(bem)).toEqual([]);
         });
 
         test('invalid', () => {
-            const linterRule = new LinterRules.TextInvalidH2Position('TEXT', 'INVALID_H2_POSITION');
+            const linterRule = new LinterRules.Text.InvalidH2Position('TEXT', 'INVALID_H2_POSITION');
             const json = readFileSync('./tests/linter-rules/samples/text/invalid_h2_position.invalid.json', 'utf8');
             const bem = jsonToBem(json) as BemBlock;
             const result = linterRule.lint(bem);
@@ -55,14 +56,14 @@ describe('TEXT', () => {
 
     describe('INVALID_H3_POSITION', () => {
         test('valid', () => {
-            const linterRule = new LinterRules.TextInvalidH3Position('TEXT', 'INVALID_H3_POSITION');
+            const linterRule = new LinterRules.Text.InvalidH3Position('TEXT', 'INVALID_H3_POSITION');
             const json = readFileSync('./tests/linter-rules/samples/text/invalid_h3_position.valid.json', 'utf8');
             const bem = jsonToBem(json) as BemBlock;
             expect(linterRule.lint(bem)).toEqual([]);
         });
 
         test('invalid', () => {
-            const linterRule = new LinterRules.TextInvalidH3Position('TEXT', 'INVALID_H3_POSITION');
+            const linterRule = new LinterRules.Text.InvalidH3Position('TEXT', 'INVALID_H3_POSITION');
             const json = readFileSync('./tests/linter-rules/samples/text/invalid_h3_position.invalid.json', 'utf8');
             const bem = jsonToBem(json) as BemBlock;
             const result = linterRule.lint(bem);
