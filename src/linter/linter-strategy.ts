@@ -52,7 +52,6 @@ export default class LinterStrategy {
                 }
 
                 traverse((bem as BemBlock).content);
-                traverse((bem as BemBlock).elem);
                 traverse((bem as BemBlock).mix);
             }
             else if (bem instanceof BemBlockArray) {
