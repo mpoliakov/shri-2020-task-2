@@ -8,12 +8,12 @@ export default class InvalidPlaceholderSize extends NodeLinterRule {
         super(category, code);
     }
 
-    lint(bem: BemBlock): LinterProblem[] {
-        if (bem.block !== "warning")
+    lint(bemBlock: BemBlock): LinterProblem[] {
+        if (bemBlock.block !== "warning")
             return [];
 
-        if (bem.content && bem.content.blocks.length) {
-            const placeholderBlocks = bem.content.blocks.filter((b) => b.block === 'placeholder');
+        if (bemBlock.content && bemBlock.content.blocks.length) {
+            const placeholderBlocks = bemBlock.content.blocks.filter((b) => b.block === 'placeholder');
 
             if (!placeholderBlocks.length)
                 return [];

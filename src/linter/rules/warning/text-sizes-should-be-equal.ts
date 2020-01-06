@@ -7,13 +7,13 @@ export default class TextSizesShouldBeEqual extends NodeLinterRule {
         super(category, code);
     }
 
-    lint(bem: BemBlock): LinterProblem[] {
+    lint(bemBlock: BemBlock): LinterProblem[] {
         // TODO: case insensitive check
-        if (bem.block !== 'warning')
+        if (bemBlock.block !== 'warning')
             return [];
 
-        if (bem.content && bem.content.blocks.length) {
-            const textBlocks = bem.content.blocks.filter((b) => b.block === 'text');
+        if (bemBlock.content && bemBlock.content.blocks.length) {
+            const textBlocks = bemBlock.content.blocks.filter((b) => b.block === 'text');
             if (textBlocks.length > 1 && textBlocks[0].mods) {
                 const etalonSize = textBlocks[0].mods?.get('size');
 
@@ -22,7 +22,7 @@ export default class TextSizesShouldBeEqual extends NodeLinterRule {
                         return [{
                             code: this.code,
                             error: `Все тексты (блоки text) в блоке warning должны быть одного размера ("size": "${etalonSize}").`,
-                            location: bem.location
+                            location: bemBlock.location
                         } as LinterProblem];
                     }
                 }

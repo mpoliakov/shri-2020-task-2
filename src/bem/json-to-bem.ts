@@ -35,6 +35,11 @@ export default (json: string) : BemBlock | BemBlockArray | undefined => {
         return;
     };
 
-    const ast = jsonToAst(json);
-    return traverse(ast);
+    try {
+        const ast = jsonToAst(json);
+        return traverse(ast);
+    }
+    catch {
+        return;
+    }
 }

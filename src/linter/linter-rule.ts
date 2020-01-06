@@ -15,19 +15,22 @@ export abstract class LinterRule {
         this.code = `${category}.${code}`;
         this.type = type;
     }
-
-    abstract lint(bem: BemBlock): LinterProblem[];
 }
 
 export abstract class NodeLinterRule extends LinterRule {
     protected constructor(category: string, code: string) {
         super(category, code, LinterRuleType.NODE);
     }
+
+    abstract lint(bemBlock: BemBlock): LinterProblem[];
 }
 
 export abstract class DocumentLinterRule extends LinterRule {
     protected constructor(category: string, code: string) {
         super(category, code, LinterRuleType.DOCUMENT);
     }
+
+    abstract check(bemBlock: BemBlock): boolean;
+    abstract lint(bemBlocks: BemBlock[]): LinterProblem[];
 }
 

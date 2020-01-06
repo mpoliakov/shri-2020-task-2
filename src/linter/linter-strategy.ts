@@ -1,4 +1,4 @@
-import { LinterRule } from "./linter-rule";
+import {LinterRule, NodeLinterRule, DocumentLinterRule} from "./linter-rule";
 import BemBlock from "../bem/bem-block";
 import BemBlockArray from "../bem/bem-block-array";
 import jsonToBem from '../bem/json-to-bem';
@@ -15,10 +15,24 @@ export default class LinterStrategy {
         return this.instance;
     }
 
+    private readonly nodeRules: NodeLinterRule[];
+    private readonly documentRules: DocumentLinterRule[];
+    /*
     private readonly rules: LinterRule[];
 
+    private get nodeRules() : NodeLinterRule[] {
+        return this.rules.filter(i => i instanceof NodeLinterRule);
+    }
+
+    private get documentRules() : DocumentLinterRule[] {
+        return this.rules.filter(i => i instanceof DocumentLinterRule);
+    }
+     */
+
     private constructor(configuration: object) {
-        this.rules = [];
+        //this.rules = [];
+        this.nodeRules = [];
+        this.documentRules = [];
 
         for (let category in configuration) {
             const codes: object = (configuration as any)[category];
@@ -28,8 +42,14 @@ export default class LinterStrategy {
 
                 try {
                     const ruleInstance = ruleClass.prototype.constructor(category, code);
-                    if (ruleInstance instanceof LinterRule) {
+                    /*if (ruleInstance instanceof LinterRule) {
                         this.rules = [...this.rules, ruleInstance];
+                    }*/
+                    if (ruleInstance instanceof NodeLinterRule) {
+                        this.nodeRules = [...this.nodeRules, ruleInstance];
+                    }
+                    else if (ruleInstance instanceof DocumentLinterRule) {
+                        this.documentRules = [...this.documentRules, ruleInstance];
                     }
                 }
                 catch {
@@ -39,16 +59,28 @@ export default class LinterStrategy {
     }
 
     lint(json: string) : LinterProblem[] {
-        let result : LinterProblem[] = [];
+        let result: LinterProblem[] = [];
+        let bemForDocumentTests: BemBlock[] = [];
 
         const traverse = (bem: BemBlock | BemBlockArray | undefined) => {
-            if (!bem)
-                return [];
+            if (!bem) {
+                return;
+            }
 
-            // TODO: use switch
             if (bem instanceof BemBlock) {
-                for(let rule of this.rules) {
+                /*for(let rule of this.rules) {
                     result = [...result, ...rule.lint(bem as BemBlock)];
+                }*/
+
+                for(let rule of this.nodeRules) {
+                    result = [...result, ...rule.lint(bem as BemBlock)];
+                }
+
+                for(let rule of this.documentRules) {
+                    if (rule.check(bem)) {
+                        bemForDocumentTests.push(bem);
+                        break; // once block is added, no need to continue
+                    }
                 }
 
                 traverse((bem as BemBlock).content);
@@ -57,8 +89,9 @@ export default class LinterStrategy {
             else if (bem instanceof BemBlockArray) {
                 const bemBlocks = (bem as BemBlockArray).blocks;
 
-                if (!bemBlocks || !bemBlocks.length)
-                    return [];
+                if (!bemBlocks || !bemBlocks.length) {
+                    return;
+                }
 
                 for(let block of bemBlocks) {
                     traverse(block);
@@ -66,10 +99,12 @@ export default class LinterStrategy {
             }
         };
 
-        console.log('Start linting...');
-
         const bem = jsonToBem(json);
         traverse(bem);
+
+        for(let rule of this.documentRules) {
+            result = [...result, ...rule.lint(bemForDocumentTests)];
+        }
 
         return result;
     }

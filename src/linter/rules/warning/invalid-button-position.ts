@@ -7,14 +7,14 @@ export default class InvalidButtonPosition extends NodeLinterRule {
         super(category, code);
     }
 
-    lint(bem: BemBlock): LinterProblem[] {
-        if (bem.block !== 'warning')
+    lint(bemBlock: BemBlock): LinterProblem[] {
+        if (bemBlock.block !== 'warning')
             return [];
 
         let result: LinterProblem[] = [];
 
-        if (bem.content && bem.content.blocks.length) {
-            const blocks = bem.content.blocks.filter((b) => b.block === 'button' || b.block === 'placeholder');
+        if (bemBlock.content && bemBlock.content.blocks.length) {
+            const blocks = bemBlock.content.blocks.filter((b) => b.block === 'button' || b.block === 'placeholder');
             if (blocks.length > 0) {
                 const placeholderPosition = blocks.findIndex((b) => b.block === 'placeholder');
 

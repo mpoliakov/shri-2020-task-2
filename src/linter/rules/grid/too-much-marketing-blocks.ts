@@ -7,12 +7,12 @@ export default class TooMuchMarketingBlocks extends NodeLinterRule {
         super(category, code);
     }
 
-    lint(bem: BemBlock): LinterProblem[] {
-        if (bem?.block !== 'grid') {
+    lint(bemBlock: BemBlock): LinterProblem[] {
+        if (bemBlock?.block !== 'grid') {
             return [];
         }
 
-        const mColumns = bem.mods?.get('m-columns') as number;
+        const mColumns = bemBlock.mods?.get('m-columns') as number;
 
         if (!mColumns) {
             return [];
@@ -22,11 +22,11 @@ export default class TooMuchMarketingBlocks extends NodeLinterRule {
 
         const marketingBlockNames = ['offer', 'commercial'];
 
-        if (!bem.content?.blocks || bem.content?.blocks.length === 0) {
+        if (!bemBlock.content?.blocks || bemBlock.content?.blocks.length === 0) {
             return []
         }
 
-        for (let contentBlock of bem.content.blocks) {
+        for (let contentBlock of bemBlock.content.blocks) {
             if (contentBlock.block !== 'grid' || contentBlock.elem !== 'fraction') {
                 continue;
             }
@@ -42,7 +42,7 @@ export default class TooMuchMarketingBlocks extends NodeLinterRule {
                 result = [...result, {
                     code: this.code,
                     error: 'Маркетинговые блоки (commercial, offer) занимают не больше половины от всех колонок блока grid.',
-                    location: bem.location
+                    location: bemBlock.location
                 } as LinterProblem];
             }
         }

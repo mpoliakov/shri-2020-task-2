@@ -9,12 +9,14 @@ export declare abstract class LinterRule {
     readonly type: LinterRuleType;
     error: string;
     protected constructor(category: string, code: string, type: LinterRuleType);
-    abstract lint(bem: BemBlock): LinterProblem[];
 }
 export declare abstract class NodeLinterRule extends LinterRule {
     protected constructor(category: string, code: string);
+    abstract lint(bemBlock: BemBlock): LinterProblem[];
 }
 export declare abstract class DocumentLinterRule extends LinterRule {
     protected constructor(category: string, code: string);
+    abstract check(bemBlock: BemBlock): boolean;
+    abstract lint(bemBlocks: BemBlock[]): LinterProblem[];
 }
 export {};

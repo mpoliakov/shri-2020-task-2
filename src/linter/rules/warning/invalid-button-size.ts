@@ -8,14 +8,14 @@ export default class InvalidButtonSize extends NodeLinterRule {
         super(category, code);
     }
 
-    lint(bem: BemBlock): LinterProblem[] {
-        if (bem.block !== 'warning')
+    lint(bemBlock: BemBlock): LinterProblem[] {
+        if (bemBlock.block !== 'warning')
             return [];
 
         let result: LinterProblem[] = [];
 
-        if (bem.content && bem.content.blocks.length) {
-            const textBlocks = bem.content.blocks.filter((b) => b.block === 'text');
+        if (bemBlock.content && bemBlock.content.blocks.length) {
+            const textBlocks = bemBlock.content.blocks.filter((b) => b.block === 'text');
             if (textBlocks.length > 0 && textBlocks[0].mods) {
                 const etalonSize = textBlocks[0].mods?.get('size') as string;
 
@@ -24,7 +24,7 @@ export default class InvalidButtonSize extends NodeLinterRule {
 
                 const etalonButtonSize = incrementSizeMod(etalonSize);
 
-                const buttonBlocks = bem.content.blocks.filter((b) => b.block === 'button');
+                const buttonBlocks = bemBlock.content.blocks.filter((b) => b.block === 'button');
                 for (let btn of buttonBlocks) {
                     if (btn.mods?.get('size') !== etalonButtonSize) {
                         result = [...result, {
