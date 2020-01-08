@@ -6,5 +6,3 @@ import LinterProblem from './linter/linter-problem'
     const strategy = LinterStrategy.getInstance(configuration);
     return strategy.lint(json);
 };
-
-
