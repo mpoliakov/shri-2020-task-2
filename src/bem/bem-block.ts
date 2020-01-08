@@ -9,7 +9,6 @@ export default class BemBlock {
     content?: BemBlockArray;
     mix?: BemBlockArray;
     location?: Location;
-    // TODO: depth?: number;
 
     constructor() {
         this.block = '';

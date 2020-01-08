@@ -8,7 +8,6 @@ export default class TextSizesShouldBeEqual extends NodeLinterRule {
     }
 
     lint(bemBlock: BemBlock): LinterProblem[] {
-        // TODO: case insensitive check
         if (bemBlock.block !== 'warning')
             return [];
 

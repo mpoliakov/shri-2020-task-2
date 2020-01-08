@@ -4,8 +4,6 @@ import BemBlockArray from "./bem-block-array";
 import AstObjectHelper from './ast-object-helper';
 
 export default (json: string) : BemBlock | BemBlockArray | undefined => {
-    // TODO: let depth: number = 0;
-
     const traverse = (ast: jsonToAst.AstJsonEntity | undefined) : BemBlock | BemBlockArray | undefined => {
         if (!ast) {
             return;

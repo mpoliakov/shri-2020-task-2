@@ -1,5 +1,3 @@
-// TODO: Add namespaces Warning, Text, Grid
-
 import TooMuchMarketingBlocks from './grid/too-much-marketing-blocks';
 import SeveralH1 from './text/several-h1';
 import InvalidH2Position from './text/invalid-h2-position';
