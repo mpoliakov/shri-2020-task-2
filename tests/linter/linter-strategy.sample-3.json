@@ -1,15 +1,20 @@
 [
   {
-    "block": "text",
-    "mods": {
-      "type": "h2"
-    }
-  },
-  {
-    "block": "text",
-    "mods": {
-      "type": "h1"
-    }
+    "block": "warning",
+    "content": [
+      {
+        "block": "text",
+        "mods": {
+          "size": "m"
+        }
+      },
+      {
+        "block": "text",
+        "mods": {
+          "size": "m"
+        }
+      }
+    ]
   },
   {
     "block": "warning",
@@ -23,13 +28,13 @@
       {
         "block": "text",
         "mods": {
-          "size": "m"
+          "size": "s"
         }
       },
       {
-        "block": "text",
+        "block": "button",
         "mods": {
-          "type": "h1"
+          "size": "l"
         }
       },
       {

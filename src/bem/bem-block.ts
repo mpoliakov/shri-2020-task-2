@@ -1,5 +1,5 @@
 import Location from './location';
-import BemBlockArray from "./bem-block-array";
+import BemBlockArray from './bem-block-array';
 
 export default class BemBlock {
     block: string;

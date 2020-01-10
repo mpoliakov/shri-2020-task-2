@@ -1,19 +1,19 @@
 import jsonToAst from 'json-to-ast';
-import Location from "./location";
+import Location from './location';
 
 export default class AstObjectHelper {
-    static getBlock(node: jsonToAst.AstObject): string {
-        const property = node.children?.find((i) => i.key.type === 'Identifier' && i.key.value === 'block') as jsonToAst.AstProperty;
+    static getBlock(ast: jsonToAst.AstObject): string {
+        const block = ast.children?.find((i) => i.key.type === 'Identifier' && i.key.value === 'block') as jsonToAst.AstProperty;
 
-        if (property) {
-            return (property.value as jsonToAst.AstLiteral).value as string;
+        if (block) {
+            return (block.value as jsonToAst.AstLiteral).value as string;
         }
 
         return '';
     }
 
-    static getAstContent(node: jsonToAst.AstObject): jsonToAst.AstArray | undefined {
-        const content = node.children?.find((i) => i.key.type === 'Identifier' && i.key.value === 'content');
+    static getAstContent(ast: jsonToAst.AstObject): jsonToAst.AstArray | undefined {
+        const content = ast.children?.find((i) => i.key.type === 'Identifier' && i.key.value === 'content');
 
         if (content) {
             return (content.value as jsonToAst.AstArray);
@@ -22,8 +22,8 @@ export default class AstObjectHelper {
         return;
     }
 
-    static getMods(node: jsonToAst.AstObject) : Map<string, string | number | boolean | null> | undefined {
-        const mods = node.children?.find((i) => i.key.type === 'Identifier' && i.key.value === 'mods');
+    private static getModsMap(ast: jsonToAst.AstObject, modsProperty = 'mods'): Map<string, string | number | boolean | null> | undefined {
+        const mods = ast.children?.find((i) => i.key.type === 'Identifier' && i.key.value === modsProperty);
 
         if (!mods) {
             return;
@@ -35,7 +35,7 @@ export default class AstObjectHelper {
             const modName = i.key.value;
             const modValue = (i.value as jsonToAst.AstLiteral).value;
 
-            if (modValue === "true") {
+            if (modValue === 'true') {
                 result.set(modName, true);
             }
             else if (!isNaN(Number(modValue))) {
@@ -49,45 +49,26 @@ export default class AstObjectHelper {
         return result;
     }
 
-    static getElem(node: jsonToAst.AstObject) : string | undefined {
-        const property = node.children?.find((i) => i.key.type === 'Identifier' && i.key.value === 'elem') as jsonToAst.AstProperty;
+    static getMods(ast: jsonToAst.AstObject): Map<string, string | number | boolean | null> | undefined {
+        return this.getModsMap(ast);
+    }
 
-        if (property) {
-            return (property.value as jsonToAst.AstLiteral).value as string;
+    static getElem(ast: jsonToAst.AstObject): string | undefined {
+        const elem = ast.children?.find((i) => i.key.type === 'Identifier' && i.key.value === 'elem') as jsonToAst.AstProperty;
+
+        if (elem) {
+            return (elem.value as jsonToAst.AstLiteral).value as string;
         }
 
         return;
     }
 
-    static getElemMods(node: jsonToAst.AstObject) : Map<string, string | number | boolean | null> | undefined {
-        const elemMods = node.children?.find((i) => i.key.type === 'Identifier' && i.key.value === 'elemMods');
-
-        if (!elemMods) {
-            return;
-        }
-
-        const result = new Map<string, string | number | boolean | null>();
-
-        (elemMods.value as jsonToAst.AstObject).children?.forEach((i) => {
-            const modName = i.key.value;
-            const modValue = (i.value as jsonToAst.AstLiteral).value;
-
-            if (modValue === "true") {
-                result.set(modName, true);
-            }
-            else if (!isNaN(Number(modValue))) {
-                result.set(modName, Number(modValue))
-            }
-            else {
-                result.set(modName, modValue);
-            }
-        });
-
-        return result;
+    static getElemMods(ast: jsonToAst.AstObject): Map<string, string | number | boolean | null> | undefined {
+        return this.getModsMap(ast, 'elemMods');
     }
 
-    static getAstMix(node: jsonToAst.AstObject): jsonToAst.AstArray | undefined {
-        const mix = node.children?.find((i) => i.key.type === 'Identifier' && i.key.value === 'mix');
+    static getAstMix(ast: jsonToAst.AstObject): jsonToAst.AstArray | undefined {
+        const mix = ast.children?.find((i) => i.key.type === 'Identifier' && i.key.value === 'mix');
 
         if (mix) {
             return (mix.value as jsonToAst.AstArray);
@@ -97,8 +78,9 @@ export default class AstObjectHelper {
     }
 
     static getLocation(node: jsonToAst.AstJsonEntity): Location | undefined {
-        if (!node.loc)
+        if (!node.loc) {
             return;
+        }
 
         return {
             start: {

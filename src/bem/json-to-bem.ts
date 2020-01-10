@@ -1,16 +1,16 @@
-import jsonToAst from "json-to-ast";
-import BemBlock from "./bem-block";
-import BemBlockArray from "./bem-block-array";
+import jsonToAst from 'json-to-ast';
+import BemBlock from './bem-block';
+import BemBlockArray from './bem-block-array';
 import AstObjectHelper from './ast-object-helper';
 
-export default (json: string) : BemBlock | BemBlockArray | undefined => {
-    const traverse = (ast: jsonToAst.AstJsonEntity | undefined) : BemBlock | BemBlockArray | undefined => {
+export default (json: string): BemBlock | BemBlockArray | undefined => {
+    const traverse = (ast: jsonToAst.AstJsonEntity | undefined): BemBlock | BemBlockArray | undefined => {
         if (!ast) {
             return;
         }
 
         switch (ast.type) {
-            case 'Object':
+            case 'Object': {
                 const bemBlock = new BemBlock();
                 bemBlock.block = AstObjectHelper.getBlock(ast);
                 bemBlock.mods = AstObjectHelper.getMods(ast);
@@ -20,14 +20,16 @@ export default (json: string) : BemBlock | BemBlockArray | undefined => {
                 bemBlock.mix = traverse(AstObjectHelper.getAstMix(ast)) as BemBlockArray;
                 bemBlock.location = AstObjectHelper.getLocation(ast);
                 return bemBlock;
+            }
 
-            case 'Array':
+            case 'Array': {
                 const bemBlockArr = new BemBlockArray();
                 ast.children?.forEach((astObject) => {
                     bemBlockArr?.blocks.push(traverse(astObject) as BemBlock);
                 });
                 bemBlockArr.location = AstObjectHelper.getLocation((ast));
                 return bemBlockArr;
+            }
         }
 
         return;

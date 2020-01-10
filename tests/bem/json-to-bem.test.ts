@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import jsonToBem from '../../src/bem/json-to-bem';
-import BemBlock from "../../src/bem/bem-block";
-import BemBlockArray from "../../src/bem/bem-block-array";
+import BemBlock from '../../src/bem/bem-block';
+import BemBlockArray from '../../src/bem/bem-block-array';
 
 describe('Convert json-to-bem', () => {
     test('Grid block', () => {
@@ -16,23 +16,26 @@ describe('Convert json-to-bem', () => {
 
         expect(bem.mods?.get('m-columns')).toEqual(10);
 
-        expect(bem.mix?.blocks[0].block).toEqual('theme');
-        expect(bem.mix?.blocks[0].mods?.get('color')).toEqual('default');
-        expect(bem.mix?.blocks[0].mods?.get('inverse')).toEqual(true);
+        const themeBlock = bem.mix?.blocks[0];
+        expect(themeBlock?.block).toEqual('theme');
+        expect(themeBlock?.mods?.get('color')).toEqual('default');
+        expect(themeBlock?.mods?.get('inverse')).toEqual(true);
 
-        expect(bem.content?.blocks[0].block).toEqual('grid');
-        expect(bem.content?.blocks[0].elem).toEqual('fraction');
-        expect(bem.content?.blocks[0].elemMods?.get('m-col')).toEqual(8);
-        expect(bem.content?.blocks[0].location?.start.column).toEqual(5);
-        expect(bem.content?.blocks[0].location?.start.line).toEqual(16);
-        expect(bem.content?.blocks[0].location?.end.column).toEqual(6);
-        expect(bem.content?.blocks[0].location?.end.line).toEqual(27);
+        const fractionElem = bem.content?.blocks[0];
+        expect(fractionElem?.block).toEqual('grid');
+        expect(fractionElem?.elem).toEqual('fraction');
+        expect(fractionElem?.elemMods?.get('m-col')).toEqual(8);
+        expect(fractionElem?.location?.start.column).toEqual(5);
+        expect(fractionElem?.location?.start.line).toEqual(16);
+        expect(fractionElem?.location?.end.column).toEqual(6);
+        expect(fractionElem?.location?.end.line).toEqual(27);
 
-        expect(bem.content?.blocks[0].content?.blocks[0].block).toEqual('payment');
-        expect(bem.content?.blocks[0].content?.blocks[0].location?.start.column).toEqual(9);
-        expect(bem.content?.blocks[0].content?.blocks[0].location?.start.line).toEqual(23);
-        expect(bem.content?.blocks[0].content?.blocks[0].location?.end.column).toEqual(10);
-        expect(bem.content?.blocks[0].content?.blocks[0].location?.end.line).toEqual(25);
+        const paymentBlock = fractionElem?.content?.blocks[0];
+        expect(paymentBlock?.block).toEqual('payment');
+        expect(paymentBlock?.location?.start.column).toEqual(9);
+        expect(paymentBlock?.location?.start.line).toEqual(23);
+        expect(paymentBlock?.location?.end.column).toEqual(10);
+        expect(paymentBlock?.location?.end.line).toEqual(25);
     });
 
     test('Text blocks', () => {

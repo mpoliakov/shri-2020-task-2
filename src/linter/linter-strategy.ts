@@ -1,13 +1,17 @@
-import {NodeLinterRule, DocumentLinterRule} from "./linter-rule";
-import BemBlock from "../bem/bem-block";
-import BemBlockArray from "../bem/bem-block-array";
 import jsonToBem from '../bem/json-to-bem';
-import LinterProblem from "./linter-problem";
+import BemBlock from '../bem/bem-block';
+import BemBlockArray from '../bem/bem-block-array';
+import {
+    LinterRule,
+    NodeLinterRule,
+    DocumentLinterRule
+} from './linter-rule';
+import LinterProblem from './linter-problem';
 
 export default class LinterStrategy {
     private static instance: LinterStrategy;
 
-    public static getInstance(configuration: object) : LinterStrategy {
+    public static getInstance(configuration: object): LinterStrategy {
         if (!this.instance) {
             this.instance = new LinterStrategy(configuration);
         }
@@ -15,53 +19,57 @@ export default class LinterStrategy {
         return this.instance;
     }
 
-    private readonly nodeRules: NodeLinterRule[];
-    private readonly documentRules: DocumentLinterRule[];
+    private readonly rules: LinterRule[];
+
+    private get nodeLinterRules(): NodeLinterRule[] {
+        return this.rules.filter(i => i instanceof NodeLinterRule) as NodeLinterRule[];
+    }
+
+    private get documentLinterRules(): DocumentLinterRule[] {
+        return this.rules.filter(i => i instanceof DocumentLinterRule) as DocumentLinterRule[];
+    }
 
     private constructor(configuration: object) {
-        this.nodeRules = [];
-        this.documentRules = [];
+        this.rules = [];
 
-        for (let category in configuration) {
+        for (const category in configuration) {
             const codes: object = (configuration as any)[category];
 
-            for(let code in codes) {
+            for(const code in codes) {
                 const ruleClass = (codes as any)[code];
 
                 try {
                     const ruleInstance = ruleClass.prototype.constructor(category, code);
-
-                    if (ruleInstance instanceof NodeLinterRule) {
-                        this.nodeRules = [...this.nodeRules, ruleInstance];
-                    }
-                    else if (ruleInstance instanceof DocumentLinterRule) {
-                        this.documentRules = [...this.documentRules, ruleInstance];
-                    }
+                    this.rules = [...this.rules, ruleInstance];
                 }
                 catch {
+                    return;
                 }
             }
         }
     }
 
-    lint(json: string) : LinterProblem[] {
+    lint(json: string): LinterProblem[] {
         let result: LinterProblem[] = [];
-        let bemForDocumentTests: BemBlock[] = [];
+        const documentRuleBemMap = new Map<string, BemBlock[]>();
 
-        const traverse = (bem: BemBlock | BemBlockArray | undefined) => {
+        const traverse = (bem: BemBlock | BemBlockArray | undefined): void => {
             if (!bem) {
                 return;
             }
 
             if (bem instanceof BemBlock) {
-                for(let rule of this.nodeRules) {
+                for(const rule of this.nodeLinterRules) {
                     result = [...result, ...rule.lint(bem as BemBlock)];
                 }
 
-                for(let rule of this.documentRules) {
+                for(const rule of this.documentLinterRules) {
                     if (rule.check(bem)) {
-                        bemForDocumentTests.push(bem);
-                        break; // once block is added, no need to continue
+                        if (!documentRuleBemMap.has(rule.code)) {
+                            documentRuleBemMap.set(rule.code, []);
+                        }
+
+                        documentRuleBemMap.get(rule.code)?.push(bem);
                     }
                 }
 
@@ -75,7 +83,7 @@ export default class LinterStrategy {
                     return;
                 }
 
-                for(let block of bemBlocks) {
+                for(const block of bemBlocks) {
                     traverse(block);
                 }
             }
@@ -84,8 +92,13 @@ export default class LinterStrategy {
         const bem = jsonToBem(json);
         traverse(bem);
 
-        for(let rule of this.documentRules) {
-            result = [...result, ...rule.lint(bemForDocumentTests)];
+        for(const rule of this.documentLinterRules) {
+            if (documentRuleBemMap.has(rule.code)) {
+                const blocks = documentRuleBemMap.get(rule.code);
+                if (blocks) {
+                    result = [...rule.lint(blocks), ...result];
+                }
+            }
         }
 
         return result;

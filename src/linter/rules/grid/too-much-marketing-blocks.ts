@@ -1,6 +1,6 @@
-import { NodeLinterRule } from "../../linter-rule";
-import LinterProblem from "../../linter-problem";
-import BemBlock from "../../../bem/bem-block";
+import { NodeLinterRule } from '../../linter-rule';
+import LinterProblem from '../../linter-problem';
+import BemBlock from '../../../bem/bem-block';
 
 export default class TooMuchMarketingBlocks extends NodeLinterRule {
     constructor(category: string, code: string) {
@@ -13,20 +13,18 @@ export default class TooMuchMarketingBlocks extends NodeLinterRule {
         }
 
         const mColumns = bemBlock.mods?.get('m-columns') as number;
-
         if (!mColumns) {
             return [];
         }
-
-        let result: LinterProblem[] = [];
-
-        const marketingBlockNames = ['offer', 'commercial'];
 
         if (!bemBlock.content?.blocks || bemBlock.content?.blocks.length === 0) {
             return []
         }
 
-        for (let contentBlock of bemBlock.content.blocks) {
+        let result: LinterProblem[] = [];
+        const marketingBlockNames = ['offer', 'commercial'];
+
+        for (const contentBlock of bemBlock.content.blocks) {
             if (contentBlock.block !== 'grid' || contentBlock.elem !== 'fraction') {
                 continue;
             }

@@ -1,12 +1,4 @@
-export enum SizeMod {
-    S = 's' ,
-    M = 'm',
-    L = 'l',
-    XL = 'xl',
-    XXL = 'xxl'
-}
-
-export const incrementSizeMod = (value: string): string | undefined => {
+export default (value: string): string | undefined => {
     switch (value) {
         case 's':
             return 'm';

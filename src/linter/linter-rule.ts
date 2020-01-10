@@ -9,7 +9,7 @@ enum LinterRuleType {
 export abstract class LinterRule {
     readonly code: string;
     readonly type: LinterRuleType;
-    error: string = '';
+    error = '';
 
     protected constructor(category: string, code: string, type: LinterRuleType) {
         this.code = `${category}.${code}`;

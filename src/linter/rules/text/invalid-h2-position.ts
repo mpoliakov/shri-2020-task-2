@@ -1,6 +1,6 @@
-import { DocumentLinterRule } from "../../linter-rule";
-import LinterProblem from "../../linter-problem";
-import BemBlock from "../../../bem/bem-block";
+import { DocumentLinterRule } from '../../linter-rule';
+import LinterProblem from '../../linter-problem';
+import BemBlock from '../../../bem/bem-block';
 
 export default class InvalidH2Position extends DocumentLinterRule {
     constructor(category: string, code: string) {
@@ -22,7 +22,7 @@ export default class InvalidH2Position extends DocumentLinterRule {
         let result: LinterProblem[] = [];
 
         const h2BlocksBeforeH1 = bemBlocks.slice(0, h1Index).filter(i => i.mods?.get('type') === 'h2');
-        for (let h2Block of h2BlocksBeforeH1) {
+        for (const h2Block of h2BlocksBeforeH1) {
             result = [...result, {
                 code: this.code,
                 error: 'Заголовок второго уровня (блок text с модификатором type h2) не может находиться перед заголовком первого уровня на том же или более глубоком уровне вложенности.',
