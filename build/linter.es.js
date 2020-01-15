@@ -1,10 +1,4 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var jsonToAst = _interopDefault(require('json-to-ast'));
+import jsonToAst from 'json-to-ast';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -637,4 +631,4 @@ var lint = function (json) {
 };
 global.lint = lint;
 
-exports.lint = lint;
+export { lint };
