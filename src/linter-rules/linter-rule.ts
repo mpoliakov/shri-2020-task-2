@@ -1,5 +1,5 @@
-import BemBlock from "../bem/bem-block";
-import LinterProblem from "./linter-problem";
+import BemBlock from '../bem/bem-block';
+import LinterProblem from '../linter-problem';
 
 enum LinterRuleType {
     DOCUMENT,

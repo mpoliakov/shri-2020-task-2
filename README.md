@@ -10,15 +10,15 @@
 
 ### Правила проверки
 
-Добавил абстрактный класс [LinterRule](src/linter/linter-rule.ts), а так же выделил 2 типа правил, которые наследуются от него:
+Добавил абстрактный класс [LinterRule](src/linter-rules/linter-rule.ts), а так же выделил 2 типа правил, которые наследуются от него:
 
 - Правило для конкретного блока - `NodeLinterRule`;
 - Правило для всего документа - `DocumentLinterRule` (н-р, для всех правил типа "TEXT").
 
-Реализация правил находится в папке [rules](src/linter/rules).
+Реализация правил находится в папке [linter-rules](src/linter-rules): [warning](src/linter-rules/warning), [text](src/linter-rules/text), [grid](src/linter-rules/grid).
 
 ### Анализ json
-За анализ отвечает класс [LinterStrategy](src/linter/linter-strategy.ts). Функция lint() выполняет проход по документу и применяет правила проверки. Набор правил LinterStrategy получает из [configuration](src/configuration.ts):
+За анализ отвечает класс [LinterStrategy](src/linter-strategy.ts). Функция lint() выполняет проход по документу и применяет правила проверки. Набор правил LinterStrategy получает из [configuration](src/linter-configuration.ts):
 ```ts
 {
     WARNING: {
@@ -38,11 +38,11 @@
 }
 ``` 
 
-Выполняется один проход по дереву. В качестве результата возвращается массив [LinterProblem](src/linter/linter-problem.ts).
+Выполняется один проход по дереву. В качестве результата возвращается массив [LinterProblem](src/linter-problem.ts).
 
 Во время прохода правила для конкретных блоков выполняют проверку тут же, правила для всего документа сначала собирают потенциальные блоки, и в конце выполняют проверку, - сделано для оптимизации.
 
-В фале [linter.ts](src/linter.ts) создаётся глобальная функция, которая получает экземпляр LinterStrategy и вызывает функцию lint.
+В файле [linter.ts](src/linter.ts) создаётся глобальная функция, которая получает экземпляр LinterStrategy и вызывает функцию lint().
 
 ### Unit-тесты
 Для unit-тестирования использовал `Jest`. Тесты находятся в соответствующей папке [tests](tests).

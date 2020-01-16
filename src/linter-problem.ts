@@ -1,4 +1,4 @@
-import Location from '../bem/location';
+import Location from './bem/location';
 
 export default interface LinterProblem {
     code: string;

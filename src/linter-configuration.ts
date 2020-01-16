@@ -1,4 +1,4 @@
-import LinterRules from './linter/rules/rules';
+import LinterRules from './linter-rules/linter-rules';
 
 export default {
     WARNING: {

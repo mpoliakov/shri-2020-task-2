@@ -1,13 +1,13 @@
 import { readFileSync } from 'fs';
-import jsonToBem from '../../../../src/bem/json-to-bem';
-import BemBlock from '../../../../src/bem/bem-block';
-import LinterRules from '../../../../src/linter/rules/rules';
+import jsonToBem from '../../../src/bem/json-to-bem';
+import BemBlock from '../../../src/bem/bem-block';
+import LinterRules from '../../../src/linter-rules/linter-rules';
 
 describe('WARNING', () => {
     describe('TEXT_SIZES_SHOULD_BE_EQUAL', () => {
         test('valid', () => {
             const linterRule = new LinterRules.Warning.TextSizesShouldBeEqual('WARNING', 'TEXT_SIZES_SHOULD_BE_EQUAL');
-            const json = readFileSync('./tests/linter/rules/warning/text-sizes-should-be-equal.valid.json', 'utf8');
+            const json = readFileSync('./tests/linter-rules/warning/text-sizes-should-be-equal.valid.json', 'utf8');
             const bem = jsonToBem(json) as BemBlock;
             const result = linterRule.lint(bem);
 
@@ -16,7 +16,7 @@ describe('WARNING', () => {
 
         test('invalid', () => {
             const linterRule = new LinterRules.Warning.TextSizesShouldBeEqual('WARNING', 'TEXT_SIZES_SHOULD_BE_EQUAL');
-            const json = readFileSync('./tests/linter/rules/warning/text-sizes-should-be-equal.invalid.json', 'utf8');
+            const json = readFileSync('./tests/linter-rules/warning/text-sizes-should-be-equal.invalid.json', 'utf8');
             const bem = jsonToBem(json) as BemBlock;
             const result = linterRule.lint(bem);
 
@@ -42,7 +42,7 @@ describe('WARNING', () => {
     describe('INVALID_BUTTON_SIZE', () => {
         test('valid', () => {
             const linterRule = new LinterRules.Warning.InvalidButtonSize('WARNING', 'INVALID_BUTTON_SIZE');
-            const json = readFileSync('./tests/linter/rules/warning/invalid-button-size.valid.json', 'utf8');
+            const json = readFileSync('./tests/linter-rules/warning/invalid-button-size.valid.json', 'utf8');
             const bem = jsonToBem(json) as BemBlock;
 
             expect(linterRule.lint(bem)).toEqual([]);
@@ -50,7 +50,7 @@ describe('WARNING', () => {
 
         test('invalid', () => {
             const linterRule = new LinterRules.Warning.InvalidButtonSize('WARNING', 'INVALID_BUTTON_SIZE');
-            const json = readFileSync('./tests/linter/rules/warning/invalid-button-size.invalid.json', 'utf8');
+            const json = readFileSync('./tests/linter-rules/warning/invalid-button-size.invalid.json', 'utf8');
             const bem = jsonToBem(json) as BemBlock;
             const result = linterRule.lint(bem);
 
@@ -76,7 +76,7 @@ describe('WARNING', () => {
     describe('INVALID_BUTTON_POSITION', () => {
         test('valid', () => {
             const linterRule = new LinterRules.Warning.InvalidButtonPosition('WARNING', 'INVALID_BUTTON_POSITION');
-            const json = readFileSync('./tests/linter/rules/warning/invalid-button-position.valid.json', 'utf8');
+            const json = readFileSync('./tests/linter-rules/warning/invalid-button-position.valid.json', 'utf8');
             const bem = jsonToBem(json) as BemBlock;
 
             expect(linterRule.lint(bem)).toEqual([]);
@@ -84,7 +84,7 @@ describe('WARNING', () => {
 
         test('invalid', () => {
             const linterRule = new LinterRules.Warning.InvalidButtonPosition('WARNING', 'INVALID_BUTTON_POSITION');
-            const json = readFileSync('./tests/linter/rules/warning/invalid-button-position.invalid.json', 'utf8');
+            const json = readFileSync('./tests/linter-rules/warning/invalid-button-position.invalid.json', 'utf8');
             const bem = jsonToBem(json) as BemBlock;
             const result = linterRule.lint(bem);
 
@@ -110,7 +110,7 @@ describe('WARNING', () => {
     describe('INVALID_PLACEHOLDER_SIZE', () => {
         test('valid', () => {
             const linterRule = new LinterRules.Warning.InvalidPlaceholderSize('WARNING', 'INVALID_PLACEHOLDER_SIZE');
-            const json = readFileSync('./tests/linter/rules/warning/invalid-placeholder-size.valid.json', 'utf8');
+            const json = readFileSync('./tests/linter-rules/warning/invalid-placeholder-size.valid.json', 'utf8');
             const bem = jsonToBem(json) as BemBlock;
 
             expect(linterRule.lint(bem)).toEqual([]);
@@ -118,7 +118,7 @@ describe('WARNING', () => {
 
         test('invalid', () => {
             const linterRule = new LinterRules.Warning.InvalidPlaceholderSize('WARNING', 'INVALID_PLACEHOLDER_SIZE');
-            const json = readFileSync('./tests/linter/rules/warning/invalid-placeholder-size.invalid.json', 'utf8');
+            const json = readFileSync('./tests/linter-rules/warning/invalid-placeholder-size.invalid.json', 'utf8');
             const bem = jsonToBem(json) as BemBlock;
             const result = linterRule.lint(bem);
 

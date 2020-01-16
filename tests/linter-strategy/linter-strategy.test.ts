@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
-import LinterRules from '../../src/linter/rules/rules';
-import LinterStrategy from '../../src/linter/linter-strategy';
+import LinterRules from '../../src/linter-rules/linter-rules';
+import LinterStrategy from '../../src/linter-strategy';
 
 describe('Linter strategy', () => {
     const linterStrategy = LinterStrategy.getInstance({
@@ -50,7 +50,7 @@ describe('Linter strategy', () => {
     });
 
     test('sample-1', () => {
-        const json = readFileSync('./tests/linter/linter-strategy.sample-1.json', 'utf8');
+        const json = readFileSync('./tests/linter-strategy/linter-strategy.sample-1.json', 'utf8');
         const result = linterStrategy.lint(json);
 
         expect(result instanceof Array).toBeTruthy();
@@ -62,7 +62,7 @@ describe('Linter strategy', () => {
     });
 
     test('sample-2', () => {
-        const json = readFileSync('./tests/linter/linter-strategy.sample-2.json', 'utf8');
+        const json = readFileSync('./tests/linter-strategy/linter-strategy.sample-2.json', 'utf8');
         const result = linterStrategy.lint(json);
 
         expect(result instanceof Array).toBeTruthy();
@@ -73,7 +73,7 @@ describe('Linter strategy', () => {
     });
 
     test('sample-3', () => {
-        const json = readFileSync('./tests/linter/linter-strategy.sample-3.json', 'utf8');
+        const json = readFileSync('./tests/linter-strategy/linter-strategy.sample-3.json', 'utf8');
         const result = linterStrategy.lint(json);
 
         expect(result instanceof Array).toBeTruthy();

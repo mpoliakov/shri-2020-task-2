@@ -1,7 +1,7 @@
-import { NodeLinterRule } from '../../linter-rule';
+import { NodeLinterRule } from '../linter-rule';
 import LinterProblem from '../../linter-problem';
-import BemBlock from '../../../bem/bem-block';
-import incrementSizeMod from '../../../bem/increment-size-mod';
+import BemBlock from '../../bem/bem-block';
+import incrementSizeMod from '../../bem/increment-size-mod';
 
 export default class InvalidButtonSize extends NodeLinterRule {
     constructor(category: string, code: string) {

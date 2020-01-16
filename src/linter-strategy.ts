@@ -1,11 +1,11 @@
-import jsonToBem from '../bem/json-to-bem';
-import BemBlock from '../bem/bem-block';
-import BemBlockArray from '../bem/bem-block-array';
+import jsonToBem from './bem/json-to-bem';
+import BemBlock from './bem/bem-block';
+import BemBlockArray from './bem/bem-block-array';
 import {
     LinterRule,
     NodeLinterRule,
     DocumentLinterRule
-} from './linter-rule';
+} from './linter-rules/linter-rule';
 import LinterProblem from './linter-problem';
 
 export default class LinterStrategy {
@@ -64,6 +64,7 @@ export default class LinterStrategy {
                 }
 
                 for(const rule of this.documentLinterRules) {
+                    // check the node for potential lint via document rule
                     if (rule.check(bem)) {
                         if (!documentRuleBemMap.has(rule.code)) {
                             documentRuleBemMap.set(rule.code, []);
@@ -92,6 +93,7 @@ export default class LinterStrategy {
         const bem = jsonToBem(json);
         traverse(bem);
 
+        // check document rules after entire tree traverse
         for(const rule of this.documentLinterRules) {
             if (documentRuleBemMap.has(rule.code)) {
                 const blocks = documentRuleBemMap.get(rule.code);
