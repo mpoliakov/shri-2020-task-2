@@ -12,23 +12,26 @@ export default class InvalidButtonPosition extends NodeLinterRule {
             return [];
         }
 
-        if (!bemBlock.content || bemBlock.content.blocks.length === 0) {
+        const buttonAndPlaceholderBlocks = bemBlock.findNestedBlocks(['button', 'placeholder']);
+
+
+        if (!buttonAndPlaceholderBlocks || buttonAndPlaceholderBlocks.length === 0) {
             return [];
         }
 
-        const placeholderPosition = bemBlock.content.blocks.findIndex((b) => b.block === 'placeholder');
+        const placeholderPosition = buttonAndPlaceholderBlocks.findIndex((b) => b.block === 'placeholder');
         if (placeholderPosition === -1) {
             return [];
         }
 
         let result: LinterProblem[] = [];
 
-        for (let i = 0; i < bemBlock.content.blocks.length; i++) {
-            if (bemBlock.content.blocks[i].block === 'button' && i < placeholderPosition) {
+        for (let i = 0; i < placeholderPosition; i++) {
+            if (buttonAndPlaceholderBlocks[i].block === 'button') {
                 result = [...result, {
                     code: this.code,
                     error: 'Блок button в блоке warning не может находиться перед блоком placeholder на том же или более глубоком уровне вложенности.',
-                    location: bemBlock.content.blocks[i].location
+                    location: buttonAndPlaceholderBlocks[i].location
                 } as LinterProblem];
             }
         }

@@ -77,10 +77,11 @@ describe('Linter strategy', () => {
         const result = linterStrategy.lint(json);
 
         expect(result instanceof Array).toBeTruthy();
-        expect(result.length).toEqual(4);
+        expect(result.length).toEqual(5);
         expect(result[0].code).toEqual('WARNING.TEXT_SIZES_SHOULD_BE_EQUAL');
         expect(result[1].code).toEqual('WARNING.INVALID_BUTTON_SIZE');
         expect(result[2].code).toEqual('WARNING.INVALID_BUTTON_POSITION');
-        expect(result[3].code).toEqual('WARNING.INVALID_PLACEHOLDER_SIZE');
+        expect(result[3].code).toEqual('WARNING.INVALID_BUTTON_POSITION');
+        expect(result[4].code).toEqual('WARNING.INVALID_PLACEHOLDER_SIZE');
     });
 });

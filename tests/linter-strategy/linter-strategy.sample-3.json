@@ -38,7 +38,24 @@
         }
       },
       {
+        "block": "section",
+        "content": [
+          {
+            "block": "button",
+            "mods": {
+              "size": "xl"
+            }
+          }
+        ]
+      },
+      {
         "block": "placeholder",
+        "mods": {
+          "size": "xl"
+        }
+      },
+      {
+        "block": "button",
         "mods": {
           "size": "xl"
         }

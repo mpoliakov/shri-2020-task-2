@@ -13,6 +13,28 @@ export default class BemBlock {
     constructor() {
         this.block = '';
     }
+
+    findNestedBlocks(blockNames: string[]): BemBlock[] {
+        let result: BemBlock[] = [];
+
+        const traverse = (content: BemBlockArray | undefined) => {
+            if (!content || !content.blocks || content.blocks.length === 0) {
+                return;
+            }
+
+            for (const block of content.blocks) {
+                if (blockNames.indexOf(block.block) > -1) {
+                    result = [...result, block];
+                }
+
+                traverse(block.content);
+            }
+        }
+
+        traverse(this.content);
+
+        return result;
+    }
 }
 
 

@@ -74,17 +74,25 @@ describe('WARNING', () => {
     });
 
     describe('INVALID_BUTTON_POSITION', () => {
-        test('valid', () => {
+        test('valid-1', () => {
             const linterRule = new LinterRules.Warning.InvalidButtonPosition('WARNING', 'INVALID_BUTTON_POSITION');
-            const json = readFileSync('./tests/linter-rules/warning/invalid-button-position.valid.json', 'utf8');
+            const json = readFileSync('./tests/linter-rules/warning/invalid-button-position.valid-1.json', 'utf8');
             const bem = jsonToBem(json) as BemBlock;
 
             expect(linterRule.lint(bem)).toEqual([]);
         });
 
-        test('invalid', () => {
+        test('valid-2', () => {
             const linterRule = new LinterRules.Warning.InvalidButtonPosition('WARNING', 'INVALID_BUTTON_POSITION');
-            const json = readFileSync('./tests/linter-rules/warning/invalid-button-position.invalid.json', 'utf8');
+            const json = readFileSync('./tests/linter-rules/warning/invalid-button-position.valid-2.json', 'utf8');
+            const bem = jsonToBem(json) as BemBlock;
+
+            expect(linterRule.lint(bem)).toEqual([]);
+        });
+
+        test('invalid-1', () => {
+            const linterRule = new LinterRules.Warning.InvalidButtonPosition('WARNING', 'INVALID_BUTTON_POSITION');
+            const json = readFileSync('./tests/linter-rules/warning/invalid-button-position.invalid-1.json', 'utf8');
             const bem = jsonToBem(json) as BemBlock;
             const result = linterRule.lint(bem);
 
@@ -101,6 +109,30 @@ describe('WARNING', () => {
                     end: {
                         column: 6,
                         line: 9
+                    }
+                }
+            }));
+        });
+
+        test('invalid-2', () => {
+            const linterRule = new LinterRules.Warning.InvalidButtonPosition('WARNING', 'INVALID_BUTTON_POSITION');
+            const json = readFileSync('./tests/linter-rules/warning/invalid-button-position.invalid-2.json', 'utf8');
+            const bem = jsonToBem(json) as BemBlock;
+            const result = linterRule.lint(bem);
+
+            expect(result instanceof Array).toBeTruthy();
+            expect(result.length).toEqual(1);
+            expect(JSON.stringify(result[0])).toEqual(JSON.stringify({
+                code: 'WARNING.INVALID_BUTTON_POSITION',
+                error: 'Блок button в блоке warning не может находиться перед блоком placeholder на том же или более глубоком уровне вложенности.',
+                location: {
+                    start: {
+                        column: 9,
+                        line: 7
+                    },
+                    end: {
+                        column: 10,
+                        line: 12
                     }
                 }
             }));
