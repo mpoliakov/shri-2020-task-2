@@ -12,7 +12,7 @@ export default class SeveralH1 extends DocumentLinterRule {
     }
 
     lint(bemBlocks: BemBlock[]): LinterProblem[] {
-        const h1Blocks = bemBlocks?.filter(i => i.block === 'text' && i.mods?.get('type') === 'h1');
+        const h1Blocks = bemBlocks.filter(i => i.block === 'text' && i.mods?.get('type') === 'h1');
 
         let result: LinterProblem[] = [];
 

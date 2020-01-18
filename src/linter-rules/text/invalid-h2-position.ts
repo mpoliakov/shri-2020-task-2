@@ -13,15 +13,18 @@ export default class InvalidH2Position extends DocumentLinterRule {
 
     lint(bemBlocks: BemBlock[]): LinterProblem[] {
         const hBlocks = bemBlocks.filter(i => i.block === 'text' && (i.mods?.get('type') === 'h1') || i.mods?.get('type') === 'h2');
-        const h1Index = hBlocks?.findIndex(i => i.mods?.get('type') === 'h1');
+        const h1Blocks = hBlocks.filter(i => i.mods?.get('type') === 'h1');
 
-        if (h1Index <= 0) {
+        if (h1Blocks.length === 0) {
             return [];
         }
 
+        const lastH1Block = h1Blocks[h1Blocks.length - 1];
+        const lastH1Index = hBlocks.lastIndexOf(lastH1Block);
+
         let result: LinterProblem[] = [];
 
-        const h2BlocksBeforeH1 = bemBlocks.slice(0, h1Index).filter(i => i.mods?.get('type') === 'h2');
+        const h2BlocksBeforeH1 = hBlocks.slice(0, lastH1Index).filter(i => i.mods?.get('type') === 'h2');
         for (const h2Block of h2BlocksBeforeH1) {
             result = [...result, {
                 code: this.code,

@@ -1,0 +1,19 @@
+[
+  {
+    "block": "text",
+    "mods": {
+      "type": "h2"
+    }
+  },
+  {
+    "block": "section",
+    "content": [
+      {
+        "block": "text",
+        "mods": {
+          "type": "h1"
+        }
+      }
+    ]
+  }
+]

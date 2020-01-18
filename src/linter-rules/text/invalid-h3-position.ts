@@ -13,15 +13,18 @@ export default class InvalidH3Position extends DocumentLinterRule {
 
     lint(bemBlocks: BemBlock[]): LinterProblem[] {
         const hBlocks = bemBlocks.filter(i => i.block === 'text' && (i.mods?.get('type') === 'h2') || i.mods?.get('type') === 'h3');
-        const h2Index = hBlocks?.findIndex(i => i.mods?.get('type') === 'h2');
+        const h2Blocks = hBlocks.filter(i => i.mods?.get('type') === 'h2');
 
-        if (h2Index <= 0) {
+        if (h2Blocks.length === 0) {
             return [];
         }
 
+        const lastH2Block = h2Blocks[h2Blocks.length - 1];
+        const lastH2Index = hBlocks.lastIndexOf(lastH2Block);
+
         let result: LinterProblem[] = [];
 
-        const h3BlocksBeforeH2 = bemBlocks.slice(0, h2Index).filter(i => i.mods?.get('type') === 'h3');
+        const h3BlocksBeforeH2 = hBlocks.slice(0, lastH2Index).filter(i => i.mods?.get('type') === 'h3');
         for (const h3Block of h3BlocksBeforeH2) {
             result = [...result, {
                 code: this.code,

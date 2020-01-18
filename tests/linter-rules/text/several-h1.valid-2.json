@@ -1,0 +1,13 @@
+[
+  {
+    "block": "section",
+    "content": [
+      {
+        "block": "text",
+        "mods": {
+          "type": "h1"
+        }
+      }
+    ]
+  }
+]
