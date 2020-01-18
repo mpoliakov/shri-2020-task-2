@@ -2,26 +2,32 @@
   "block": "warning",
   "content": [
     {
-      "block": "section",
-      "content": [
-        {
-          "block": "button",
-          "mods": {
-            "size": "m"
-          }
-        }
-      ]
+      "block": "text",
+      "mods": {
+        "size": "l"
+      }
     },
     {
-      "block": "placeholder",
+      "block": "text",
       "mods": {
         "size": "m"
       }
     },
     {
+      "block": "section",
+      "content": [
+        {
+          "block": "button",
+          "mods": {
+            "size": "xl"
+          }
+        }
+      ]
+    },
+    {
       "block": "button",
       "mods": {
-        "size": "m"
+        "size": "xl"
       }
     }
   ]

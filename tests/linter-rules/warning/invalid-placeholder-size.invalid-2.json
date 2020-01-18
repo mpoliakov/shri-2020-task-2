@@ -1,0 +1,22 @@
+{
+  "block": "warning",
+  "content": [
+    {
+      "block": "placeholder",
+      "mods": {
+        "size": "xl"
+      }
+    },
+    {
+      "block": "section",
+      "content": [
+        {
+          "block": "placeholder",
+          "mods": {
+            "size": "xxl"
+          }
+        }
+      ]
+    }
+  ]
+}

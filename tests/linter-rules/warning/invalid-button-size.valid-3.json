@@ -7,21 +7,15 @@
         {
           "block": "button",
           "mods": {
-            "size": "m"
+            "size": "xl"
           }
         }
       ]
     },
     {
-      "block": "placeholder",
+      "block": "text",
       "mods": {
-        "size": "m"
-      }
-    },
-    {
-      "block": "button",
-      "mods": {
-        "size": "m"
+        "size": "l"
       }
     }
   ]

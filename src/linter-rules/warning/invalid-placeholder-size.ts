@@ -16,8 +16,8 @@ export default class InvalidPlaceholderSize extends NodeLinterRule {
             return [];
         }
 
-        const placeholderBlocks = bemBlock.content.blocks.filter((b) => b.block === 'placeholder');
-        if (!placeholderBlocks.length) {
+        const placeholderBlocks = bemBlock.findNestedBlocks(['placeholder']);
+        if (placeholderBlocks.length === 0) {
             return [];
         }
 

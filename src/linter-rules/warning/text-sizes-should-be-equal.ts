@@ -16,7 +16,7 @@ export default class TextSizesShouldBeEqual extends NodeLinterRule {
             return [];
         }
 
-        const textBlocks = bemBlock.content.blocks.filter((b) => b.block === 'text');
+        const textBlocks = bemBlock.findNestedBlocks(['text']);
         if (textBlocks.length > 1 && textBlocks[0].mods) {
             const etalonSize = textBlocks[0].mods?.get('size');
 

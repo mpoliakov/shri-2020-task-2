@@ -17,7 +17,7 @@ export default class InvalidButtonSize extends NodeLinterRule {
             return [];
         }
 
-        const textBlocks = bemBlock.content.blocks.filter((b) => b.block === 'text');
+        const textBlocks = bemBlock.findNestedBlocks(['text'])
         if (textBlocks.length === 0 || !textBlocks[0].mods) {
             return [];
         }
@@ -28,7 +28,7 @@ export default class InvalidButtonSize extends NodeLinterRule {
         }
 
         const etalonButtonSize = incrementSizeMod(etalonSize);
-        const buttonBlocks = bemBlock.content.blocks.filter((b) => b.block === 'button');
+        const buttonBlocks = bemBlock.findNestedBlocks(['button'])
 
         let result: LinterProblem[] = [];
 

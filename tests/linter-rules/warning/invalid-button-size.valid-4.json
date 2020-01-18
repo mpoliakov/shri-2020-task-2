@@ -1,0 +1,14 @@
+{
+  "block": "warning",
+  "content": [
+    {
+      "block": "text"
+    },
+    {
+      "block": "button",
+      "mods": {
+        "size": "xl"
+      }
+    }
+  ]
+}

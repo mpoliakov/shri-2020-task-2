@@ -1,0 +1,27 @@
+{
+  "block": "warning",
+  "content": [
+    {
+      "block": "section",
+      "content": [
+        {
+          "block": "placeholder",
+          "mods": {
+            "size": "m"
+          }
+        },
+        {
+          "block": "section",
+          "content": [
+            {
+              "block": "placeholder",
+              "mods": {
+                "size": "l"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -2,20 +2,26 @@
   "block": "warning",
   "content": [
     {
+      "block": "text",
+      "mods": {
+        "size": "l"
+      }
+    },
+    {
       "block": "section",
       "content": [
         {
           "block": "button",
           "mods": {
-            "size": "m"
+            "size": "s"
           }
         }
       ]
     },
     {
-      "block": "placeholder",
+      "block": "button",
       "mods": {
-        "size": "m"
+        "size": "xl"
       }
     },
     {
